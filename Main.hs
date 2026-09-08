@@ -1,6 +1,13 @@
 module Main where
 
-data Expr = Var String | Lam String Expr | App Expr Expr deriving (Show, Eq)
+import Reduce
 
 main :: IO ()
-main = putStrLn "Lambda Calc Initialized."
+main :: IO ()
+main = do
+    putStrLn "=== Untyped Lambda Calculus Evaluator ==="
+    -- (\x. x) y --> y
+    let idExp = Lam "x" (Var "x")
+    let appExp = App idExp (Var "y")
+    putStrLn $ "Original: " ++ show appExp
+    putStrLn $ "Reduced:  " ++ show (eval appExp)
